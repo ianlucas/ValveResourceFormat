@@ -160,7 +160,11 @@ public sealed class TextureExtract
             return vtex;
         }
 
-        vtex.AddImageSubFile(Path.GetFileName(GetImageFileName()), ImageEncode);
+        vtex.AddImageSubFile(
+            Path.GetFileName(GetImageFileName()),
+            (bitmap) =>
+                ExportExr ? ImageEncode(bitmap) : ToPngImageChannels(bitmap, ChannelMapping.RGB)
+        );
         return vtex;
     }
 
